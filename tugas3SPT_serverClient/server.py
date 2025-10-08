@@ -36,4 +36,5 @@ client_socket.close()
 
 # menutup server socket setelah selesai digunakan
 server_socket.close()
-print("Server socket telah ditutup!")
+print("Server socket telah berakhir!")
+
