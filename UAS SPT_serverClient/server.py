@@ -1,0 +1,29 @@
+import socket 
+
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# mengikat alamat IP dan port ke socket agar bisa diakses oleh client
+server_socket.bind(('localhost', 8080))
+
+# membuat server dapat mendengarkan koneksi yang masuk
+server_socket.listen(5)  # angka 5 menunjukkan jumlah maksimum koneksi yang dapat diterima dalam antrian
+print("Server mendengarkan informasi dari port 8080")
+
+# menerima koneksi dari client
+client_socket, addr = server_socket.accept() # fungsi accept() akan menerima koneksi dari client yang akan mengembalikan socket baru dan alamat IP dari client yang akan terhubung ke server
+print(f"Koneksi dari {addr} berhasil dibuat.")
+
+# menerima data dari client
+data = client_socket.recv(1024).decode() # fungsi recv() akan menerima data dari client dengan maksimal 1024 byte yang dapat diterima dalam satu kali panggilan
+print(f"Menerima pesan dari client: {data}")
+
+# mengirimkan balasan ke client
+client_socket.send("Hello Saya dari server!".encode())
+print("Pesan telah dikirim ke client!")
+
+# menutup koneksi dengan client
+client_socket.close()
+
+# menutup server socket setelah selesai digunakan
+server_socket.close()
+print("Server socket telah ditutup!")
